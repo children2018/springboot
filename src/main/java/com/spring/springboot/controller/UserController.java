@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,7 @@ import com.spring.springboot.service.UserService;
 @Controller
 public class UserController {
 
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+	private Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -33,8 +32,9 @@ public class UserController {
     @RequestMapping("/getUserInfo")
     @ResponseBody
     public List<User> getUserInfo() {
-    	logger.info("para1:{},param2:{}", "abc", "cba");
         List<User> user = userService.getUserInfo();
+        logger.info("yayaya1:");
+        //logger.info("yayaya1:" + JSON.toJSONString(user));
         if(user!=null){
         }
         return user;
