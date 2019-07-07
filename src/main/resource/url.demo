@@ -1,0 +1,26 @@
+http://localhost:8080/swagger/index.html
+http://localhost:8080/getUserInfo
+http://localhost:8080/insertinfo
+http://localhost:8080/insertInfoWithFork
+http://localhost:8080/insertsListWithFork
+单条语句插入10万条：{"id":null,"name":"cost:201822","age":null,"password":null}
+每秒保存条数：495.4861214337386
+
+单条语句插入10万条，打开MYSQL日志：{"id":null,"name":"cost:484104","age":null,"password":null}
+每秒保存条数：206.6115702479339
+
+
+批量插入10万条，批次量999行数据，打开MYSQL日志 ，用时2.6秒：{"id":null,"name":"cost:2647","age":null,"password":null}
+批量插入100万条，批次量999行数据，打开MYSQL日志，用时30.3秒：{"id":null,"name":"cost:30308","age":null,"password":null}
+批量插入100万条，批次量999行数据，打开MYSQL日志，用时38.2秒：{"id":null,"name":"cost:28216","age":null,"password":null}
+平均每秒插入32994条记录
+批量插入100万条，批次量3000行数据，打开MYSQL日志，用时24.7秒：{"id":null,"name":"cost:24757","age":null,"password":null}
+批量插入100万条，批次量3000行数据，打开MYSQL日志，用时27.8秒：{"id":null,"name":"cost:27805","age":null,"password":null}
+批量插入100万条，批次量3000行数据，打开MYSQL日志，用时26.3秒：{"id":null,"name":"cost:26336","age":null,"password":null}
+
+批量插入100万条，批次量5000行数据，打开MYSQL日志，用时26.3秒：{"id":null,"name":"cost:26792","age":null,"password":null}
+
+http://localhost:8080/hello?name=7player
+
+SSD： 读：473MB，写：167MB
+HDD： 读：45MB，写：45MB
