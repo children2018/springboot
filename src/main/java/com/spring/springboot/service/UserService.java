@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ForkJoinPool;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.spring.springboot.mapper.UserMapper;
 import com.spring.springboot.model.User;
 
@@ -17,6 +19,8 @@ import com.spring.springboot.model.User;
 
 @Service
 public class UserService {
+	
+	private Logger logger = Logger.getLogger(UserService.class);
 
     @Autowired
     private UserMapper userMapper;
@@ -34,6 +38,7 @@ public class UserService {
 		user.setAge((int)(s% 100000));
 		user.setName("jack" + s);
 		user.setPassword("password" + s);
+		logger.info("insert.user:" + JSON.toJSONString(user));
 		userMapper.insert(user);
     }
     
