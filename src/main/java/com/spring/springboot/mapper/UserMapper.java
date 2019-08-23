@@ -14,6 +14,10 @@ public interface UserMapper {
 	
     public List<User> findUserInfo();
     
+    public User queryUserInfoById(@Param("id") String id);
+
+    public List<User> queryUserInfoByIds(@Param("ids") String ids);
+
     public void insert(User user);
 
     public void insertList(@Param("list") List<User> userList);

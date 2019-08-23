@@ -20,7 +20,7 @@ public class DataSourceAop {
 	
 	private Logger logger = Logger.getLogger(DataSourceAop.class);
 
-	@Before("execution(* com.spring.springboot.mapper.*.select*(..)) || execution(* com.spring.springboot.mapper.*.find*(..))")
+	@Before("execution(* com.spring.springboot.mapper.*.select*(..)) || execution(* com.spring.springboot.mapper.*.find*(..)) || execution(* com.spring.springboot.mapper.*.query*(..)) || execution(* com.spring.springboot.mapper.*.get*(..))")
 	public void setReadDataSourceType() {
 		DataSourceContextHolder.read();
 		logger.info("dataSource切换到：Read");

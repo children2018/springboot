@@ -6,6 +6,14 @@
     select id,name,age,password from user
   </select>
   
+  <select id="queryUserInfoById" resultType="com.spring.springboot.model.User">
+    select id,name,age,password from user where id = #{id}
+  </select>
+  
+  <select id="queryUserInfoByIds" resultType="com.spring.springboot.model.User">
+    select id,name,age,password from user where id in (${ids})
+  </select>
+  
   <insert id="insert" parameterType="com.spring.springboot.model.User">
   	insert into user(id,name, age,password) values (#{id},#{name},#{age},#{password})
   </insert>
