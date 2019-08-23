@@ -14,6 +14,13 @@
     select id,name,age,password from user where id in (${ids})
   </select>
   
+  <select id="queryUserInfoByIdsForeach" resultType="com.spring.springboot.model.User">
+    select id,name,age,password from user where id in
+    <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
+  </select>
+  
   <insert id="insert" parameterType="com.spring.springboot.model.User">
   	insert into user(id,name, age,password) values (#{id},#{name},#{age},#{password})
   </insert>

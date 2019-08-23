@@ -18,6 +18,8 @@ public interface UserMapper {
 
     public List<User> queryUserInfoByIds(@Param("ids") String ids);
 
+    public List<User> queryUserInfoByIdsForeach(@Param("list") List<String> list);
+
     public void insert(User user);
 
     public void insertList(@Param("list") List<User> userList);

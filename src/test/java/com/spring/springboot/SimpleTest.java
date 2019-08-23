@@ -69,7 +69,46 @@ public class SimpleTest {
 		}
 		
 		if (queryList.size() > 0) {
+			System.out.println("queryList.size():" + queryList.size());
 			List<User> userList = userMapper.queryUserInfoByIds("'" + StringUtils.join(queryList.stream().map(o -> o.getId()).collect(Collectors.toList()), "','") + "'");
+			if (userList.stream().anyMatch(o -> StringUtils.isEmpty(o.getName())) || userList.size() != queryList.size()) {
+				throw new Exception("查询失败2");
+			}
+			queryList.clear();
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("cost:" + (end - start));
+		System.out.println("it's ok");
+	}
+	
+	/**
+	 * 不知道是不是oracle跟MYSQL有差别的原因，oracle的SQL条件只能in一千个左右，但是MYSQL这里能in一万个，也没报错，暂时不知道原因
+	 * queryUserInfoByIdsForeach
+	 * @throws Exception
+	 */
+	@Test
+	public void testIdsForeach() throws Exception {
+		List<User> list = userMapper.findUserInfo();
+		long start = System.currentTimeMillis();
+		long sum = 0 ;
+		List<User> queryList = new ArrayList<User>();
+		for (User user : list) {
+			queryList.add(user);
+			System.out.println(++sum);
+			if (queryList.size() % 10000 == 0) {
+				List<String> sss = queryList.stream().map(o -> o.getId()).collect(Collectors.toList());
+				List<User> userList = userMapper.queryUserInfoByIdsForeach(sss);
+				if (userList.stream().anyMatch(o -> StringUtils.isEmpty(o.getName())) || userList.size() != queryList.size()) {
+					throw new Exception("查询失败1");
+				}
+				queryList.clear();
+			}
+		}
+		
+		if (queryList.size() > 0) {
+			System.out.println("queryList.size():" + queryList.size());
+			List<String> sss = queryList.stream().map(o -> o.getId()).collect(Collectors.toList());
+			List<User> userList = userMapper.queryUserInfoByIdsForeach(sss);
 			if (userList.stream().anyMatch(o -> StringUtils.isEmpty(o.getName())) || userList.size() != queryList.size()) {
 				throw new Exception("查询失败2");
 			}
