@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.spring.springboot.mapper.UserMapper;
 import com.spring.springboot.model.User;
@@ -24,6 +25,13 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+    
+    @Reference
+    private DubboSSSService dubboSSSService;
+    
+    public void testDubbo() {
+    	dubboSSSService.getUserInfo();
+    }
 
     public List<User> getUserInfo(){
         List<User> user=userMapper.findUserInfo();

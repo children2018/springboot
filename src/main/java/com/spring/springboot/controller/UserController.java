@@ -28,6 +28,13 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RedisCache jedisUtils;
+    
+    @RequestMapping("/testDubbo")
+    @ResponseBody
+    public User testDubbo() {
+    	userService.testDubbo();
+    	return null;
+    }
 
     @RequestMapping("/getUserInfo")
     @ResponseBody
