@@ -31,7 +31,7 @@ public class DataSourceContextHolder {
 	}
 	
 	public static void clear() {
-		logger.info("正在清除标识：" + local.get());
+		//logger.info("正在清除标识：" + local.get());
 		local.remove();
 	}
 }

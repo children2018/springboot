@@ -24,4 +24,6 @@ public interface UserMapper {
 
     public void insertList(@Param("list") List<User> userList);
     
+    public int updateUser(User user);
+    
 }

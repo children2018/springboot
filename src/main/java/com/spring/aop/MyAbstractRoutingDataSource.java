@@ -30,7 +30,7 @@ public class MyAbstractRoutingDataSource extends AbstractRoutingDataSource {
 			Long lookupKey = number % dataSourceNumber;
 			resultObject = "" + lookupKey;
 		}
-		logger.info("determineCurrentLookupKey:" + resultObject);
+		//logger.info("determineCurrentLookupKey:" + resultObject);
 		return resultObject;
 	}
 }

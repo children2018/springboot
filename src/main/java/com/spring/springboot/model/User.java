@@ -8,8 +8,17 @@ public class User {
     private String name;
     private Integer age;
     private String password;
+    private String revision;
     
-    public void setId(String id) {
+    public String getRevision() {
+		return revision;
+	}
+
+	public void setRevision(String revision) {
+		this.revision = revision;
+	}
+
+	public void setId(String id) {
 		this.id = id;
 	}
     

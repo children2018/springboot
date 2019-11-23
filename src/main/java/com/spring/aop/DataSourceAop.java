@@ -29,7 +29,7 @@ public class DataSourceAop {
 	@Before("execution(* com.spring.springboot.mapper.*.insert*(..)) || execution(* com.spring.springboot.mapper.*.update*(..)) || execution(* com.spring.springboot.mapper.*.delete*(..))")
 	public void setWriteDataSourceType() {
 		DataSourceContextHolder.write();
-		logger.info("dataSource切换到：write");
+		//logger.info("dataSource切换到：write");
 	}
 	
 	@After("execution(* com.spring.springboot.mapper.*.select*(..)) || execution(* com.spring.springboot.mapper.*.find*(..))")
@@ -41,7 +41,7 @@ public class DataSourceAop {
 	@After("execution(* com.spring.springboot.mapper.*.insert*(..)) || execution(* com.spring.springboot.mapper.*.update*(..)) || execution(* com.spring.springboot.mapper.*.delete*(..))")
 	public void clearWriteDataSourceType() {
 		DataSourceContextHolder.clear();
-		logger.info("write之后清除本地标识");
+		//logger.info("write之后清除本地标识");
 	}
 	
 	/*@Around("@annotation(org.springframework.transaction.annotation.Transactional)")

@@ -31,5 +31,17 @@
 	  	(#{user.id},#{user.name},#{user.age},#{user.password})
   	</foreach>
   </insert>
+  
+  <update id="updateUser" parameterType="com.spring.springboot.model.User">
+  	update 
+  	  user
+  	set 
+  	  name=#{name},
+  	  age=#{age},
+  	  password=#{password},
+  	  revision= '2'
+  	where id = #{id}
+  	  and revision = #{revision}
+  </update>
  
 </mapper>
