@@ -67,6 +67,7 @@ public class TestController {
 		}
 		try {
 			cdl.await();
+			execute.shutdown();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
