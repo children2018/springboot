@@ -52,15 +52,23 @@ public class TestController {
 		user.setAge(19);
 		user.setRevision("1");
 		CountDownLatch cdl = new CountDownLatch(1000);
+		CountDownLatch ready = new CountDownLatch(1000);
 		Long start = new Date(). getTime();
 		ExecutorService execute = Executors.newFixedThreadPool(1000);
 		for (int index =1 ;index <= 1000;index++) {
 			execute.submit(new Thread() {
 				@Override
 				public void run() {
+					ready.countDown();
+					try {
+						ready.await();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					Long startssss = new Date().getTime();
 					int result = userMapper.updateUser(user);
 					add(log, result);
-					System.out.println("-----------------------result:" + result);
+					System.out.println("" + startssss +"\t" + new Date().getTime() + "\t-----------------------result:" + result);
 					cdl.countDown();
 				}
 			});
