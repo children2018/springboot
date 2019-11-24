@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,9 +43,8 @@ public class TestController {
 	@GetMapping("/supervene")
 	@ResponseBody
 	public User supervene() {
-		Hashtable<Integer, Integer> log = new Hashtable<Integer, Integer>();
-		log.put(1,0);
-		log.put(0,0);
+		AtomicInteger zero = new AtomicInteger();
+		AtomicInteger one = new AtomicInteger();
 		User user = new User();
 		user.setId("1d8bf18d-9dcf-4d6d-b62e-ec740d4b2297");
 		user.setName("testjack");
@@ -52,14 +52,13 @@ public class TestController {
 		user.setAge(19);
 		user.setRevision("1");
 		CountDownLatch cdl = new CountDownLatch(1000);
-		CountDownLatch ready = new CountDownLatch(1000);
+		CountDownLatch ready = new CountDownLatch(1);
 		Long start = new Date(). getTime();
 		ExecutorService execute = Executors.newFixedThreadPool(1000);
 		for (int index =1 ;index <= 1000;index++) {
 			execute.submit(new Thread() {
 				@Override
 				public void run() {
-					ready.countDown();
 					try {
 						ready.await();
 					} catch (InterruptedException e) {
@@ -67,27 +66,29 @@ public class TestController {
 					}
 					Long startssss = new Date().getTime();
 					int result = userMapper.updateUser(user);
-					add(log, result);
 					System.out.println("" + startssss +"\t" + new Date().getTime() + "\t-----------------------result:" + result);
+					if (result == 0) {
+						zero.incrementAndGet();
+					} else if (result == 1) {
+						one.incrementAndGet();
+					}
 					cdl.countDown();
 				}
 			});
 		}
 		try {
+			System.out.println("countDown.....");
+			ready.countDown();
 			cdl.await();
 			execute.shutdown();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		Long end = new Date(). getTime();
-		System.out.println("0.value:" + log.get(0));
-		System.out.println("1.value:" + log.get(1));
+		System.out.println("0.value:" + zero.get());
+		System.out.println("1.value:" + one.get());
 		System.out.println("time cost:" + (end-start));
 		return user;
 	}
 	
-	private synchronized void add(Hashtable<Integer, Integer> log, int result) {
-		log.put(result, log.get(result) + 1);
-	}
- 
 }
