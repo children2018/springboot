@@ -29,13 +29,6 @@ public class UserController {
     @Autowired
     private RedisCache jedisUtils;
     
-    @RequestMapping("/testDubbo")
-    @ResponseBody
-    public User testDubbo() {
-    	userService.testDubbo();
-    	return null;
-    }
-
     @RequestMapping("/getUserInfo")
     @ResponseBody
     public List<User> getUserInfo() {

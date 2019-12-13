@@ -26,13 +26,6 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
     
-    @Reference
-    private DubboSSSService dubboSSSService;
-    
-    public void testDubbo() {
-    	dubboSSSService.getUserInfo();
-    }
-
     public List<User> getUserInfo(){
         List<User> user=userMapper.findUserInfo();
         //User user=null;
