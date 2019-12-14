@@ -62,6 +62,17 @@ public class UserController {
     	return u;
     }
     
+    @RequestMapping("/insertsListWithForkWithSubregion")
+    @ResponseBody
+    public User insertsListWithForkWithSubregion() {
+    	long begin = System.currentTimeMillis();
+    	userService.insertsListWithForkWithSubregion();
+    	long end = System.currentTimeMillis();
+    	User u = new User();
+    	u.setName("cost:" + (end - begin));
+    	return u;
+    }
+    
     @RequestMapping("/insertsListWithFork")
     @ResponseBody
     public User insertsListWithFork() {

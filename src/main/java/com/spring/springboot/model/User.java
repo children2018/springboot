@@ -9,6 +9,15 @@ public class User {
     private Integer age;
     private String password;
     private String revision;
+    private String area;
+    
+    public String getArea() {
+		return area;
+	}
+    
+    public void setArea(String area) {
+		this.area = area;
+	}
     
     public String getRevision() {
 		return revision;

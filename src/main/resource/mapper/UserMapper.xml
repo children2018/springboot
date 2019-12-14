@@ -26,9 +26,9 @@
   </insert>
   
   <insert id="insertList" >
-  	insert into user(id,name, age,password) values 
+  	insert into user(id,name, age,password,revision,area) values 
   	<foreach collection="list" item="user" separator=",">
-	  	(#{user.id},#{user.name},#{user.age},#{user.password})
+	  	(#{user.id},#{user.name},#{user.age},#{user.password},#{user.revision},#{user.area})
   	</foreach>
   </insert>
   

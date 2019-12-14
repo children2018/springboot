@@ -27,6 +27,14 @@ public class SimpleTest {
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Test
+	public void insertsListWithForkWithSubregion() {
+		long begin = System.currentTimeMillis();
+    	userService.insertsListWithForkWithSubregion();
+    	long end = System.currentTimeMillis();
+    	System.out.println("cost:" + (end - begin));
+	}
+	
 	/**
 	 * 总量10万的数量，一笔一笔查询耗时50秒
 	 * @throws Exception

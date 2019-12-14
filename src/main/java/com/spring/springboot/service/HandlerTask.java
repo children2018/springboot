@@ -31,12 +31,13 @@ public class HandlerTask extends RecursiveTask<String> {
 	@Override
 	protected String compute() {
 		
-		if (endIndex - startIndex <= this.HANDLER_NUMB) {
+		if (endIndex - startIndex + 1 <= this.HANDLER_NUMB) {
+			System.out.println("startIndex:" + startIndex + "\t endIndex:" + endIndex);
 			userMapper.insertList(userList.subList(startIndex, endIndex));
 		} else {
 			int middle = (startIndex + endIndex) / 2;
 			HandlerTask left = new HandlerTask(this.userMapper, userList, startIndex, middle, this.HANDLER_NUMB);
-			HandlerTask right = new HandlerTask(this.userMapper, userList, middle, endIndex, this.HANDLER_NUMB);
+			HandlerTask right = new HandlerTask(this.userMapper, userList, middle + 1, endIndex, this.HANDLER_NUMB);
 			left.fork();
 			right.fork();
 			
