@@ -5,11 +5,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ForkJoinPool;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.alibaba.fastjson.JSON;
 import com.spring.springboot.mapper.UserMapper;
+import com.spring.springboot.model.Location;
 import com.spring.springboot.model.User;
 
 /**
@@ -50,6 +56,38 @@ public class UserService {
     		user.setPassword("password" + i);
     		userMapper.insert(user);
     	}
+    }
+    
+    /**
+     * lambda一些灵活代码的运用
+     */
+    public void locationPre() {
+    	List<Location> list = new ArrayList<Location>();
+    	List<String> areaList = list.stream().map(o -> o.getProvince()).distinct().collect(Collectors.toList());
+    	areaList.forEach(area -> {
+    		Function<Location, String> areaFunc = func1 -> {return func1.getCity();};
+    		Predicate<Location> areaPredicate = o -> o.getArea().equals(area);
+    		this.searchList(list, areaPredicate, areaFunc);
+    	});
+    	
+    	List<String> cityList = list.stream().map(o -> o.getCity()).distinct().collect(Collectors.toList());
+    	cityList.forEach(city -> {
+    		Function<Location, String> cityFunc = func1 -> {return func1.getCity();};
+    		Predicate<Location> cityPredicate = o -> o.getProvince().equals(city);
+    		this.searchList(list, cityPredicate, cityFunc);
+    	});
+    	
+    	List<String> provinceList = list.stream().map(o -> o.getProvince()).distinct().collect(Collectors.toList());
+    	provinceList.forEach(province -> {
+    		Function<Location, String> provinceFunc = func1 -> {return func1.getCity();};
+    		Predicate<Location> provincePredicate = o -> o.getProvince().equals(province);
+    		this.searchList(list, provincePredicate, provinceFunc);
+    	});
+    }
+    
+    private List<Location> searchList(List<Location> list, Predicate<Location> predicate, Function<Location, String> func) {
+    	list.stream().map(func).collect(Collectors.toList());
+    	return list.stream().filter(predicate).collect(Collectors.toList());
     }
     
     public void insertsList() {
