@@ -12,7 +12,13 @@ public abstract class HandlerAbstract implements Handler {
 	
 	public String proccess() {
 		parseArray = Arrays.asList(str.split(" ")).stream().map(
-			o -> o.trim().replaceAll("'", "\"").replaceAll("-", "_").replaceAll("SPACES", "null").replaceAll("SPACE", "null").replaceAll(" ", " ")
+			o -> o.trim()
+			.replaceAll("'", "\"")
+			.replaceAll("-", "_")
+			.replaceAll("SPACES", "null")
+			.replaceAll("SPACE", "null").replaceAll(" ", " ")
+			.replaceAll("AND", o.equals("AND")? "&&" : "AND")
+			.replaceAll("OR", o.equals("OR")? "||" : "OR")
 		).collect(Collectors.toList());
 		parseArray.remove(0);
 		buf.append("//");

@@ -3,18 +3,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
+import org.junit.Test;
 
 public class TestStart {
 	
@@ -56,6 +53,10 @@ public class TestStart {
 					handler = new HandlerPerform(str);
 				} else if (array[1].indexOf("DISPLAY") >= 0) {
 					handler = new HandlerDisplay(str);
+				} else if (array[1].indexOf("STOPRUN") >= 0) {
+					handler = new HandlerStopRun(str);
+				} else if (array[1].indexOf("COMPUTE") >= 0) {
+					handler = new HandlerCompute(str);
 				} else if (isMethod(array[1])) {
 					handler = new HandlerMethod(str);
 				} else {
@@ -69,7 +70,7 @@ public class TestStart {
 			File fileResult = new File(fileWriteUrl);
 			FileOutputStream fos = new FileOutputStream(fileResult); 
 	        OutputStreamWriter osw = new OutputStreamWriter(fos, "utf-8"); 
-	        osw.write("package com.cobol.to.java;\n");
+	        osw.write("package com.spring.cobol.to.java;\n");
 	        osw.write("public class ContextResult {\n");
 			for (Handler item : arrayList) {
 				String strResult = item.proccess();
@@ -86,13 +87,17 @@ public class TestStart {
 		
 	}
 	
+	@Test
+	public void otherTest() {
+	}
+	
 	public static boolean isMethod(String str) {
 		if (str.indexOf(".") < 0) {
 			return false;
 		} else {
 			str = str.substring(0, str.indexOf(".") + 1);
 		}
-		String REGEX = "([0-9]{1,}-[a-zA-Z]{1,}-[a-zA-Z]{1,}.)|([0-9]{1,}-[a-zA-Z]{1,}-[a-zA-Z]{1,}-[a-zA-Z]{1,}.)";
+		String REGEX = "([0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}.)|([0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}.)";
 		Pattern pattern;
 		Matcher matcher;
 		pattern = Pattern.compile(REGEX);
