@@ -18,10 +18,13 @@ import java.util.stream.Collectors;
 
 public class TestStart {
 	
+	public final static String fileReadUrl = "F:/java/gitcache/springboot/src/main/java/com/spring/cobol/to/java/context.txt";
+	public final static String fileWriteUrl = "F:/java/gitcache/springboot/src/main/java/com/spring/cobol/to/java/ContextResult.java";
+	
 	public static void main(String[] args) {
 		List<Handler> arrayList = new ArrayList<Handler>();
 		try {
-			File file = new File("F:/workspace201605/Test/src/com/cobol/to/java/context.txt");
+			File file = new File(fileReadUrl);
 			Reader input = new InputStreamReader(new FileInputStream(file), "utf-8");
 			BufferedReader bf = new BufferedReader(input);
 			
@@ -63,7 +66,7 @@ public class TestStart {
 			bf.close();
 			input.close();
 			
-			File fileResult = new File("F:/workspace201605/Test/src/com/cobol/to/java/ContextResult.java");
+			File fileResult = new File(fileWriteUrl);
 			FileOutputStream fos = new FileOutputStream(fileResult); 
 	        OutputStreamWriter osw = new OutputStreamWriter(fos, "utf-8"); 
 	        osw.write("package com.cobol.to.java;\n");
