@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +30,7 @@ public class TestStart {
 			String str;
 			while ((str = bf.readLine()) != null) {
 				
-				String[] array = str.split(" ");
+				String[] array = str.split("\\s+");
 				if (array.length <= 1) {
 					arrayList.add(new HandlerUndefine(str));
 					continue;
@@ -57,6 +59,10 @@ public class TestStart {
 					handler = new HandlerStopRun(str);
 				} else if (array[1].indexOf("COMPUTE") >= 0) {
 					handler = new HandlerCompute(str);
+				} else if (array[1].equals("GO")) {
+					handler = new HandlerGoTo(str);
+				} else if (array[1].equals("ERROR")) {
+					handler = new HandlerError(str);
 				} else if (isMethod(array[1])) {
 					handler = new HandlerMethod(str);
 				} else {
@@ -97,7 +103,7 @@ public class TestStart {
 		} else {
 			str = str.substring(0, str.indexOf(".") + 1);
 		}
-		String REGEX = "([0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}.)|([0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}.)";
+		String REGEX = "([0-9]{1,}-[a-zA-Z0-9]{1,}.)|([0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}.)|([0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}.)|([0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}-[a-zA-Z0-9]{1,}.)";
 		Pattern pattern;
 		Matcher matcher;
 		pattern = Pattern.compile(REGEX);

@@ -19,6 +19,10 @@ public class HandlerPic extends HandlerAbstract implements Handler {
 	public void handler() {
 		
 		int picIndex = parseArray.indexOf("PIC");
+		if (picIndex == 0) {
+			return ;
+		}
+		
 		buf.append(" private ");
 		if (parseArray.get(picIndex + 1).startsWith("X")) {
 			buf.append("String ");
@@ -38,7 +42,11 @@ public class HandlerPic extends HandlerAbstract implements Handler {
 		
 		if (parseArray.indexOf("VALUE") >= 0) {
 			buf.append(" = ");
-			buf.append(parseArray.indexOf("VALUE") + 1);
+			String value =parseArray.get(parseArray.indexOf("VALUE") + 1);
+			if (value.endsWith(".")) {
+				value = value.substring(0, value.length() - 1);
+			}
+			buf.append(value);
 		}
 		
 		buf.append(";");
