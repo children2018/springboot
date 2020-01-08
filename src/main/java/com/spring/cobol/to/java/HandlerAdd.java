@@ -14,7 +14,7 @@ public class HandlerAdd extends HandlerAbstract implements Handler {
 	public void handler() {
 		int addIndex = parseArray.indexOf("ADD");
 		int toIndex = parseArray.indexOf("TO");
-		buf.append(parseArray.get(toIndex + 1));
+		buf.append(parseArray.get(toIndex + 1).replaceAll("\\.", ""));
 		buf.append(" += ");
 		buf.append(parseArray.get(addIndex + 1));
 		buf.append(";");

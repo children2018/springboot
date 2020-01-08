@@ -16,12 +16,9 @@ public class HandlerMethod extends HandlerAbstract implements Handler {
 			buf.append("}");
 			buf.append("\n");
 		}
-		buf.append("public ");
-		buf.append("void ");
-		buf.append("METHOD_");
+		buf.append("public void METHOD_");
 		buf.append(parseArray.get(0).substring(0, parseArray.get(0).indexOf(".")));
-		buf.append("()");
-		buf.append("{");
+		buf.append("() throws Exception {");
 	}
 
 }

@@ -13,14 +13,28 @@ public class HandlerIf extends HandlerAbstract implements Handler {
 	@Override
 	public void handler() {
 		
-		while (parseArray.indexOf("GREATER") >= 0 && parseArray.indexOf("THAN") >= 0) {
-			parseArray.set(parseArray.indexOf("GREATER"), ">");
-			parseArray.remove(parseArray.indexOf("THAN"));
+		while (parseArray.indexOf("GREATER") >= 0) {
+			int greaterIndex = parseArray.indexOf("GREATER");
+			if (parseArray.get(greaterIndex - 1).equals("NOT") && parseArray.get(greaterIndex + 1).equals("THAN")) {
+				parseArray.set(greaterIndex, "<=");
+				parseArray.remove(greaterIndex + 1);
+				parseArray.remove(greaterIndex - 1);
+			} else if (parseArray.get(parseArray.indexOf("GREATER") + 1).equals("THAN")) {
+				parseArray.set(greaterIndex, ">");
+				parseArray.remove(greaterIndex + 1);
+			}
 		}
 		
-		while (parseArray.indexOf("LESS") >= 0 && parseArray.indexOf("THAN") >= 0) {
-			parseArray.set(parseArray.indexOf("LESS"), "<");
-			parseArray.remove(parseArray.indexOf("THAN"));
+		while (parseArray.indexOf("LESS") >= 0) {
+			int lessIndex = parseArray.indexOf("LESS");
+			if (parseArray.get(lessIndex - 1).equals("NOT") && parseArray.get(lessIndex + 1).equals("THAN")) {
+				parseArray.set(lessIndex, ">=");
+				parseArray.remove(lessIndex + 1);
+				parseArray.remove(lessIndex - 1);
+			} else if (parseArray.get(lessIndex + 1).equals("THAN")) {
+				parseArray.set(lessIndex, "<");
+				parseArray.remove(lessIndex + 1);
+			}
 		}
 		
 		if (parseArray.indexOf("EQUAL") >= 0 && parseArray.indexOf("EQUAL") < parseArray.size() - 1){

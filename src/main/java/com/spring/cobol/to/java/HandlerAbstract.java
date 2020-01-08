@@ -63,7 +63,7 @@ public abstract class HandlerAbstract implements Handler {
 		if (parseArray.size() == 0) {
 			return ;
 		}
-		String REGEX = "[0-9]{7}";
+		String REGEX = "[0-9]{5,8}";
 		Pattern pattern;
 		Matcher matcher;
 		pattern = Pattern.compile(REGEX);

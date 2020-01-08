@@ -61,6 +61,8 @@ public class TestStart {
 					handler = new HandlerCompute(str);
 				} else if (array[1].equals("GO")) {
 					handler = new HandlerGoTo(str);
+				} else if (array[1].equals("EJECT")) {
+					handler = new HandlerEject(str);
 				} else if (array[1].equals("ERROR")) {
 					handler = new HandlerError(str);
 				} else if (isMethod(array[1])) {
